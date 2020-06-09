@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../models/slide.dart';
 
 class SlideItem extends StatelessWidget {
-  final int index;
-  SlideItem(this.index);
+  final Slide slide;
+
+  const SlideItem(this.slide);
 
   @override
   Widget build(BuildContext context) {
@@ -12,34 +13,31 @@ class SlideItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: 200,
-          height: 180,
-          decoration: BoxDecoration(
-            
-            shape: BoxShape.rectangle , 
-            image: DecorationImage(
-              image: AssetImage(slideList[index].imageUrl),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+        Flexible(
+            child: Image.asset(
+          slide.imageUrl,
+          fit: BoxFit.cover,
+        )),
         SizedBox(
           height: 40,
         ),
-        Text(
-          slideList[index].title,
-          style: TextStyle(
-            fontSize: 22,
-            color: Theme.of(context).primaryColor,
+        Flexible(
+          child: Text(
+            slide.title,
+            style: TextStyle(
+              fontSize: 22,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
         ),
         SizedBox(
           height: 10,
         ),
-        Text(
-          slideList[index].description,
-          textAlign: TextAlign.center,
+        Flexible(
+          child: Text(
+            slide.description,
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

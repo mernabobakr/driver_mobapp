@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SlideDots extends StatelessWidget {
-  bool isActive;
-  SlideDots(this.isActive);
+  final bool isActive;
+
+  const SlideDots(this.isActive);
 
   @override
   Widget build(BuildContext context) {

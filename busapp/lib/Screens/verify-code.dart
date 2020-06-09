@@ -1,10 +1,13 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import '../services/SMS_service.dart' as sms;
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../services/SMS_service.dart' as sms;
+
 class VerifyCode extends StatefulWidget {
+  static final String id = 'verifycode';
+
   @override
   _VerifyCodeState createState() => _VerifyCodeState();
 }
@@ -13,6 +16,7 @@ class _VerifyCodeState extends State<VerifyCode> {
   String verificationCode;
   String phoneNumber;
   bool _isLoading = false;
+
   void verificationCodeSubmitted() {
     setState(() {
       this._isLoading = true;

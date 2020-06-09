@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import './TripScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
+  static final String id = 'login';
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -27,41 +29,39 @@ class _LoginPageState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text('Driver app'),
+      appBar: AppBar(
+        title: Text('Driver app'),
       ),
-      resizeToAvoidBottomPadding: false,
-      body:  DecoratedBox(
-          position: DecorationPosition.background,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/photo.jpg'),
-                fit: BoxFit.cover),
-      ),
-     child: Container(
-        padding:
-            EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0, bottom: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body: DecoratedBox(
+        position: DecorationPosition.background,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/photo.jpg'), fit: BoxFit.cover),
+        ),
+        child: ListView(
+          padding:
+              EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0, bottom: 20.0),
           children: <Widget>[
-            Text(
-              'Please sign in!',
-              style: TextStyle(
-                  fontSize: 50.0,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: "Pacifico"),
+            Center(
+              child: Text(
+                'Please sign in!',
+                style: TextStyle(
+                    fontSize: 50.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: GoogleFonts.pacifico().fontFamily),
+              ),
             ),
             SizedBox(
               height: 20.0,
             ),
             /*
-            Text(
-              "LOGIN",
-              style: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor),
-            ),*/
+          Text(
+            "LOGIN",
+            style: TextStyle(
+                fontSize: 32.0,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor),
+          ),*/
             SizedBox(
               height: 40.0,
             ),
@@ -91,27 +91,27 @@ class _LoginPageState extends State<Login> {
             SizedBox(
               height: 10.0,
             ),
-            Container(
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Don't have an account?"),
-                    SizedBox(
-                      width: 10.0,
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Don't have an account?"),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    "SIGN UP",
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
-                    Text("SIGN UP",
-                        style: TextStyle(
-                          color: Colors.black,
-                        ))
-                  ],
-                ),
+                  )
+                ],
               ),
             ),
           ],
         ),
       ),
-    ));
+    );
   }
 
   Widget buildTextField(String hintText) {
@@ -141,14 +141,13 @@ class _LoginPageState extends State<Login> {
 
   Widget buildButtonContainer(String text, String fun) {
     return Container(
-        height: 80.0,
-        width: MediaQuery.of(context).size.width,
-        color: Theme.of(context).primaryColor,
-        child: Center(
-            child: ButtonTheme(
+      height: 80.0,
+      width: MediaQuery.of(context).size.width,
+      color: Theme.of(context).primaryColor,
+      child: Center(
+        child: ButtonTheme(
           minWidth: MediaQuery.of(context).size.width,
           height: 80.0,
-
           child: RaisedButton(
             color: Colors.black,
             onPressed: () => Navigator.pushNamed(context, fun, arguments: {
@@ -163,6 +162,8 @@ class _LoginPageState extends State<Login> {
               ),
             ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 }

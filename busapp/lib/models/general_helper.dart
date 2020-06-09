@@ -19,8 +19,8 @@ void showSimpleErrorMessage(String msg, context) {
       ));
 }
 
-  Future<String> getTokenFromDisk() async {
-    final prefs = await SharedPreferences.getInstance();
-    String result = prefs.getString("token");
-    return result;
-  }
+Future<String> getTokenFromDisk() async {
+  final prefs = await SharedPreferences.getInstance();
+  String result = prefs.getString("token");
+  return result;
+}

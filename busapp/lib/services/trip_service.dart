@@ -1,11 +1,24 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:busapp/models/trip.dart';
 
-const String url = "http://ec2-54-198-140-29.compute-1.amazonaws.com:9090/trips/";
-Future<http.Response> getTripsByDriver( String driverId,String date) {
-  return http.get(
-    url + date + "/driver/"+ driverId+"/",
-    
-  ); 
+import 'package:busapp/utils/const_variables.dart';
+import 'package:http/http.dart' as http;
+
+import '../models/trip.dart';
+
+class TripService {
+  static Future<List<Trip>> getTripsByDriver(
+      String driverId, String date) async {
+    String url = '${ConsVar.baseUrl}trips/$date/driver/$driverId/';
+    print(url);
+    final http.Response response = await http.get(url);
+
+    List<Trip> tripList = [];
+    if (response?.statusCode == 200) {
+      List<dynamic> bodyMap = json.decode(response.body);
+      tripList = Trip.tripList(bodyMap);
+    } else {
+      tripList = [];
+    }
+    return tripList;
+  }
 }

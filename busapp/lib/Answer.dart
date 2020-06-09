@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Answer extends StatelessWidget {
   final Function answer;
   final String choice;
-  Answer(this.answer,this.choice);
+
+  Answer(this.answer, this.choice);
 
   @override
   Widget build(BuildContext context) {
