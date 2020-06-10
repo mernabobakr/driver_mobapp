@@ -1,6 +1,6 @@
+import 'package:busapp/Screens/TripScreen.dart';
 import 'package:flutter/widgets.dart';
 
-import 'file:///C:/Users/Ahmed%20Wafik/StudioProjects/driver_mobapp/busapp/lib/Screens/TripScreen.dart';
 
 import '../Screens/Login.dart';
 import '../Screens/Signup.dart';
