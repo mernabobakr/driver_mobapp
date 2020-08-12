@@ -26,7 +26,7 @@ class SlideItem extends StatelessWidget {
             slide.title,
             style: TextStyle(
               fontSize: 22,
-              color: Theme.of(context).primaryColor,
+              color: Color(0xFF21BFBD),
             ),
           ),
         ),

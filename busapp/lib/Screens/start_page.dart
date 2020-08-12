@@ -190,8 +190,8 @@ class _LoginPageState extends State<StartPage> {
           //MediaQuery.of(context).size.width,
           height: 55.0,
           child: RaisedButton(
-             onPressed: this.phoneSubmitted,
-           // onPressed: () => Navigator.pushReplacementNamed(context, SignUpPage.id),
+            // onPressed: this.phoneSubmitted,
+            onPressed: () => Navigator.pushReplacementNamed(context, SignUpPage.id),
             // borderSide:BorderSide(width: 4),
             color: color1,
             highlightColor: Colors.white,

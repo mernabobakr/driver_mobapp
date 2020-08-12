@@ -12,6 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryColor: Color(0xFF21BFBD),
           textTheme: GoogleFonts.ubuntuTextTheme(),
           appBarTheme: AppBarTheme(color: Colors.black)),
       home: StartPage(),

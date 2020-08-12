@@ -1,42 +1,41 @@
-class DriverSignupModel{
+class DriverSignupModel {
   String _firstName;
   String _lastName;
   String _email;
-   String pictureUrl;
+  String pictureUrl;
 
   DriverSignupModel.build(this._firstName, this._lastName, this._email);
   DriverSignupModel();
 
-  void setFirstName(String firstName){
+  void setFirstName(String firstName) {
     this._firstName = firstName;
   }
 
-  void setLastName(String lastName){
+  void setLastName(String lastName) {
     this._lastName = lastName;
   }
 
-  void setEmail(String email){
+  void setEmail(String email) {
     this._email = email;
   }
 
-  void setPictureUrl(String pictureUrl){
-    this.pictureUrl= pictureUrl;
+  void setPictureUrl(String pictureUrl) {
+    this.pictureUrl = pictureUrl;
   }
 
-  String getFirstName(){
+  String getFirstName() {
     return this._firstName;
   }
 
-  String getLastName(){
+  String getLastName() {
     return this._lastName;
   }
 
-  String getEmail(){
+  String getEmail() {
     return this._email;
   }
 
-   String getPictureUrl(){
+  String getPictureUrl() {
     return this.pictureUrl;
   }
-
 }

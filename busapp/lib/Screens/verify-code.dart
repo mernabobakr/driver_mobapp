@@ -119,13 +119,20 @@ class _VerifyCodeState extends State<VerifyCode> {
  
   @override
   Widget build(BuildContext context) {
+    String phoneNumber = ModalRoute.of(context).settings.arguments as String;
+    this.phoneNumber = phoneNumber;
+    print(this.phoneNumber+" aaa  ");
     return Scaffold(
 //      backgroundColor: Color(0xFF21BFBD),
 appBar: AppBar(
         title: Text("kidzona driver-app"),
       ),
       backgroundColor: Colors.white,
-      body: Container(
+      body:this._isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
         child: Column(
 //          padding: const EdgeInsets.all(15),
 //          shrinkWrap: true,
@@ -213,7 +220,7 @@ appBar: AppBar(
 
   Widget buildTextField(String hintText) {
     return TextField(
-      onChanged: (val) => this.phoneNumber = val,
+      onChanged: (val) => this.verificationCode = val,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:busapp/models/credentials.dart';
 import 'package:flutter/material.dart';
 
 import '../models/trip.dart';
@@ -24,11 +25,10 @@ class _TripScreenState extends State<TripScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      var args =
-          ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+    
 
-      this.id = args["driverId"] ?? 1;
-      this.date = args["date"] ?? '2020-01-10';
+      this.id = Credentials.driverId ?? 1;
+      this.date =  '2020-01-10';
       print(this.id);
       print(this.date);
 
@@ -55,13 +55,13 @@ class _TripScreenState extends State<TripScreen> {
         child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("Firstname Lastname",
+              accountName: Text(Credentials.firstName+" "+Credentials.lastName,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0)),
               accountEmail: Text(
-                "firstname@lastname.com",
+                Credentials.email,
                 style: TextStyle(color: Colors.blueGrey[50]),
               ),
               currentAccountPicture: CircleAvatar(
@@ -94,7 +94,7 @@ class _TripScreenState extends State<TripScreen> {
             ? Center(child: const CircularProgressIndicator())
             : _trips.isEmpty
                 ? Center(
-                    child: Text('no data'),
+                    child: Text('You have no trips'),
                   )
                 : buildTripItem(),
       ),

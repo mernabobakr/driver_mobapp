@@ -27,7 +27,7 @@ const List<Slide> slideList = [
   ),
   Slide(
     imageUrl: 'assets/images/a-trip-png.png',
-    title: 'The same trip every day',
+    title: 'The same trip every day', 
     description:
         'You take  the same trip with the same kids every day at the same time, so you can take use the rest of the day for any other business you want.',
   ),
