@@ -5,7 +5,20 @@ class DriverSignupModel {
   String pictureUrl;
 
   DriverSignupModel.build(this._firstName, this._lastName, this._email);
+
   DriverSignupModel();
+
+  @override
+  String toString() {
+    return 'DriverSignupModel{_firstName: $_firstName, _lastName: $_lastName, _email: $_email, pictureUrl: $pictureUrl}';
+  }
+
+  Map<String, dynamic> get toJson => {
+        "first_name": _firstName,
+        "last_name": _lastName,
+        "email": _email,
+        "picture_url": pictureUrl,
+      };
 
   void setFirstName(String firstName) {
     this._firstName = firstName;

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1073067259974",
+    "firebase_url": "https://kidzona-ed09b.firebaseio.com",
+    "project_id": "kidzona-ed09b",
+    "storage_bucket": "kidzona-ed09b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073067259974:android:9e3441135d961406a93247",
+        "android_client_info": {
+          "package_name": "com.example.parents_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073067259974-764athidt44kfm17am7m5pv628h7cr3a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsqkUDyLFllPpSPsZXXswsvTPI8VffnFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073067259974-764athidt44kfm17am7m5pv628h7cr3a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
