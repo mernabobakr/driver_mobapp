@@ -111,6 +111,8 @@ class _LoginPageState extends State<StartPage> {
       });
       if (response.statusCode == 200) {
         Navigator.pushNamed(context, VerifyCode.id, arguments: this.phoneNumber);
+        print( response.statusCode); 
+        print ("5raaa response");
       } else {
         hlp.showSimpleErrorMessage(
             "Can't send SMS verification right now. Try again later", context);

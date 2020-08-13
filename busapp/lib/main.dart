@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'Screens/start_page.dart';
+import 'Screens/TripScreen.dart';
 
 void main() => runApp(App());
 
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
           textTheme: GoogleFonts.ubuntuTextTheme(),
           appBarTheme:
               AppBarTheme(color: Colors.black)),
-      home: StartPage(),
+      home: TripScreen(),
       routes: ConsVar.mapRoutes,
     );
   }

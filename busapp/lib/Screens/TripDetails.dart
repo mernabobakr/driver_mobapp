@@ -20,9 +20,10 @@ class _TripDetailsState extends State<TripDetails> {
     // print(this._stops[0].kidId);
 
     return Scaffold(
-        backgroundColor: Color(0xFF21BFBD),
+        backgroundColor: Colors.white,
         appBar: new AppBar(
-          title: new Text('Driver app'),
+          backgroundColor: Color(0xFF21BFBD),
+          title: new Text('Your stops for this trip'),
         ),
         body: ListView.builder(
           itemCount: this._stops.length,
@@ -30,7 +31,7 @@ class _TripDetailsState extends State<TripDetails> {
             return Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-              child: Card(
+              child: Card( shadowColor: Color(0xFF21BFBD),
                 child: ListTile(
                   title: Text(this._stops[index].location),
                   subtitle: Text("The expected time to reach is" +

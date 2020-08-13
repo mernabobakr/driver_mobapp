@@ -8,7 +8,7 @@ import '../models/trip.dart';
 class TripService {
   static Future<List<Trip>> getTripsByDriver(
       String driverId, String date) async {
-    String url = '${ConsVar.baseUrl}9090/trips/$date/driver/$driverId/';
+    String url = '${ConsVar.baseUrl}:9090/trips/$date/driver/$driverId/';
     print(url);
     final http.Response response = await http.get(url);
 

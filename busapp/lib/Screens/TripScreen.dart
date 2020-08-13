@@ -12,7 +12,7 @@ class TripScreen extends StatefulWidget {
 }
 
 class _TripScreenState extends State<TripScreen> {
- String idd;
+  String idd;
 
   String date;
   String trip_type = "Morning trip";
@@ -25,10 +25,8 @@ class _TripScreenState extends State<TripScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    
-
-      this.idd =  '1';
-      this.date =  '2020-01-10';
+      this.idd = Credentials.driverId ?? '1';
+      this.date = '2020-01-10';
       print(this.idd);
       print(this.date);
 
@@ -50,6 +48,7 @@ class _TripScreenState extends State<TripScreen> {
       //backgroundColor:Color(0xFF21BFBD),
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Color(0xFF21BFBD),
         title: Text('Your trips for today'),
       ),
       drawer: Drawer(
@@ -95,8 +94,17 @@ class _TripScreenState extends State<TripScreen> {
             ? Center(child: const CircularProgressIndicator())
             : _trips.isEmpty
                 ? Center(
-                    child: Text('You have no trips'),
-                  )
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/poor.png'),
+                      radius: 60,
+                    ),
+                    Text("You have no trips today",
+                        style: TextStyle(fontSize: 25))
+                  ]))
                 : buildTripItem(),
       ),
     );
@@ -114,6 +122,7 @@ class _TripScreenState extends State<TripScreen> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
           child: Card(
+            shadowColor: Color(0xFF21BFBD),
             child: ListTile(
               title: Text(this.trip_type),
               subtitle: Text("Your status is " + this._trips[index].status),
@@ -132,4 +141,3 @@ class _TripScreenState extends State<TripScreen> {
     );
   }
 }
-

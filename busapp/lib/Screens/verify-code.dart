@@ -26,9 +26,6 @@ class _VerifyCodeState extends State<VerifyCode> {
    @override
   void initState() {
     super.initState();
-    setState(() {
-      _isLoading = true; //assuming there is a token saved in device
-    });
    
     timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
       if (_currentPage < 2) {

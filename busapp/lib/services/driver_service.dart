@@ -10,7 +10,7 @@ import 'package:busapp/utils/const_variables.dart';
    
 
   return http.post(
-    Uri.http(ConsVar.baseUrl, '8070/driver/new'),
+    Uri.http(ConsVar.baseUrl, ':8070/driver/new'),
     body: json.encode(model.toJson),
     headers: {
       "Content-Type": "application/json",

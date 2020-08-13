@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 Future<http.Response> ackToken(String phoneNumber, String token) {
   return http.post(
-    ConsVar.baseUrl + "8097/sms/ack",
+    ConsVar.baseUrl + ":8097/sms/ack",
     body: JsonEncoder().convert({"number": phoneNumber, "token": token}),
     headers: {"Content-Type": "application/json"},
   );
@@ -12,5 +12,5 @@ Future<http.Response> ackToken(String phoneNumber, String token) {
 
 
 Future<http.Response> verifyPhoneNumber(String phoneNumber) {
-  return http.get(ConsVar.baseUrl + "8097/sms/verify/" + phoneNumber);
+  return http.get(ConsVar.baseUrl + ":8097/sms/verify/" + phoneNumber);
 }
