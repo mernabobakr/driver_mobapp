@@ -2,7 +2,7 @@ import 'package:busapp/utils/const_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Screens/Signup.dart';
+import 'Screens/start_page.dart';
 
 void main() => runApp(App());
 
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
           textTheme: GoogleFonts.ubuntuTextTheme(),
           appBarTheme:
               AppBarTheme(color: Colors.black)),
-      home: SignUpPage(),
+      home: StartPage(),
       routes: ConsVar.mapRoutes,
     );
   }

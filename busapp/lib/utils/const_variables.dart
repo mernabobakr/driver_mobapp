@@ -9,8 +9,7 @@ import '../Screens/TripList.dart';
 import '../Screens/verify-code.dart';
 
 class ConsVar {
-  //static final String baseUrl =
-      //"http://ec2-100-26-224-179.compute-1.amazonaws.com:9090/";
+
 
   static final String baseUrl =
       "http://ec2-100-26-224-179.compute-1.amazonaws.com:";

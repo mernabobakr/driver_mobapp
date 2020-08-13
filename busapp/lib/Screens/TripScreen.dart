@@ -12,7 +12,7 @@ class TripScreen extends StatefulWidget {
 }
 
 class _TripScreenState extends State<TripScreen> {
-  String id;
+ String idd;
 
   String date;
   String trip_type = "Morning trip";
@@ -27,12 +27,12 @@ class _TripScreenState extends State<TripScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     
 
-      this.id = Credentials.driverId ?? 1;
+      this.idd =  '1';
       this.date =  '2020-01-10';
-      print(this.id);
+      print(this.idd);
       print(this.date);
 
-      TripService.getTripsByDriver(this.id, this.date)
+      TripService.getTripsByDriver(this.idd, this.date)
           .then((value) => this._trips = value)
           .catchError((onError) {
         print(onError);
@@ -47,7 +47,8 @@ class _TripScreenState extends State<TripScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF21BFBD),
+      //backgroundColor:Color(0xFF21BFBD),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Your trips for today'),
       ),
@@ -55,13 +56,13 @@ class _TripScreenState extends State<TripScreen> {
         child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text(Credentials.firstName+" "+Credentials.lastName,
+              accountName: Text("first name",
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0)),
               accountEmail: Text(
-                Credentials.email,
+                "email",
                 style: TextStyle(color: Colors.blueGrey[50]),
               ),
               currentAccountPicture: CircleAvatar(
@@ -131,3 +132,4 @@ class _TripScreenState extends State<TripScreen> {
     );
   }
 }
+

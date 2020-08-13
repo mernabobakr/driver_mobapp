@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:busapp/models/credentials.dart';
 import 'package:busapp/models/driver_signup_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,7 +33,22 @@ class _SignupPageState extends State<SignUpPage> {
   var _formKey = GlobalKey<FormState>();
   DriverSignupModel driverModel = DriverSignupModel();
 
-/*
+   @override
+  void initState() {
+    super.initState();
+    this._token = Credentials.token;
+    this._isLoading = true;
+    driverService
+        .getdriverId(this._token)
+        .then(this.goToTripsIfDriverIdFound)
+        .catchError(this.setIsLoadingFalse);
+  }
+  void setIsLoadingFalse(_) {
+    setState(() {
+      this._isLoading = false;
+    });
+  }
+
   void goToTripsIfDriverIdFound(http.Response response) {
     if (response.statusCode == 200) {
       var bodyMap = JsonDecoder().convert(response.body);
@@ -43,23 +58,25 @@ class _SignupPageState extends State<SignUpPage> {
       this._isLoading = false;
     });
   }
-*/
+
   void submitForm() async {
     print("offfffffff");
     this._formKey.currentState.save();
     print(this.driverModel.toString());
-    if (_formKey.currentState.validate()) {
-      // print(this.driverModel.getPictureUrl());
+    
+     
 
       setState(() {
-        // this._isLoading = true;
+         this._isLoading = true;
       });
       await uploadProfilePic();
-      driverService.signUp(this.driverModel).then((response) {
+      print(this.driverModel.getPictureUrl());
+      print ("the secret token is "+this._token);
+      driverService.signUp(this.driverModel,this._token).then((response) {
         print("The status code is  ");
         print(response.statusCode);
         setState(() {
-          // this._isLoading = false;
+           this._isLoading = false;
         });
 
         var bodyMap = JsonDecoder().convert(response.body);
@@ -69,8 +86,8 @@ class _SignupPageState extends State<SignUpPage> {
           print("The message is " + bodyMap["message"]);
         } else {
           Credentials.driverId = bodyMap["iddrivers"];
-          Credentials.driverId = bodyMap["first_name"];
-          Credentials.driverId = bodyMap["last_name"];
+          Credentials.firstName = bodyMap["first_name"];
+          Credentials.lastName= bodyMap["last_name"];
           Credentials.email = bodyMap["email"];
           Navigator.of(context).pushReplacementNamed(TripScreen.id);
         }
@@ -80,7 +97,7 @@ class _SignupPageState extends State<SignUpPage> {
           this._isLoading = false;
         });
       });
-    }
+    
   }
 
   Future uploadProfilePic() async {
@@ -103,16 +120,16 @@ class _SignupPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Driver app',
+          'Sign up',
         ),
       ),
       //resizeToAvoidBottomPadding: false,
       body:
-          /*this._isLoading
+          this._isLoading
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : */
+          : 
           Form(
         key: this._formKey,
         child: SingleChildScrollView(
@@ -125,7 +142,7 @@ class _SignupPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                //you can customize its size as you want OR you can remove it too :D
+                 
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
                   child: image == null
@@ -197,7 +214,7 @@ class _SignupPageState extends State<SignUpPage> {
 
                 FlatButton(
                   color: Color(0xFF21BFBD),
-                  child: Text("Pick an Image"),
+                  child: Text(" Upload Image"),
                   onPressed: () async {
                     ImagePicker imagePicker = ImagePicker();
                     PickedFile _image =
