@@ -1,3 +1,4 @@
+import 'package:busapp/Screens/Signup.dart';
 import 'package:busapp/utils/const_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +18,7 @@ class App extends StatelessWidget {
           textTheme: GoogleFonts.ubuntuTextTheme(),
           appBarTheme:
               AppBarTheme(color: Colors.black)),
-      home: TripScreen(),
+      home: SignUpPage(),
       routes: ConsVar.mapRoutes,
     );
   }

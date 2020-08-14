@@ -37,6 +37,8 @@ class _SignupPageState extends State<SignUpPage> {
   void initState() {
     super.initState();
     this._token = Credentials.token;
+    print("your token is");
+    print(this._token);
     this._isLoading = true;
     driverService
         .getdriverId(this._token)
@@ -51,6 +53,8 @@ class _SignupPageState extends State<SignUpPage> {
 
   void goToTripsIfDriverIdFound(http.Response response) {
     if (response.statusCode == 200) {
+      print(response.statusCode);
+      print("status code");
       var bodyMap = JsonDecoder().convert(response.body);
       Credentials.driverId = bodyMap["iddrivers"].toString();
     }
@@ -117,11 +121,13 @@ class _SignupPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Sign up',
-        ),
+      backgroundColor: Colors.white,
+     appBar: AppBar(
+        backgroundColor: Color(0xFF21BFBD),
+        title: Text('Sign Up'),
+      
       ),
       //resizeToAvoidBottomPadding: false,
       body:
