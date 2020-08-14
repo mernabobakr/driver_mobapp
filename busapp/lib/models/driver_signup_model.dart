@@ -4,9 +4,16 @@ class DriverSignupModel {
   String _email;
   String pictureUrl;
 
-  DriverSignupModel.build(this._firstName, this._lastName, this._email);
+  DriverSignupModel.build(
+      this._firstName, this._lastName, this._email, this.pictureUrl);
 
   DriverSignupModel();
+
+  factory DriverSignupModel.fromJson(Map json) => DriverSignupModel.build(
+      json['first_name'],
+      json['last_name'],
+      json['email'],
+      json['picture_url']);
 
   @override
   String toString() {

@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:busapp/Screens/start_page.dart';
 import 'package:busapp/models/credentials.dart';
+import 'package:busapp/models/driver_signup_model.dart';
+import 'package:busapp/utils/const_variables.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/trip.dart';
 import '../services/trip_service.dart';
@@ -21,7 +27,15 @@ class _TripScreenState extends State<TripScreen> {
 
   List<Trip> _trips = [];
   var _isLoading = true;
+  DriverSignupModel currentUser;
 
+  Future<DriverSignupModel> getUserInfo() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    final String result = preferences.getString(ConsVar.userKey);
+    return DriverSignupModel.fromJson(json.decode(result));
+  }
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -29,7 +43,9 @@ class _TripScreenState extends State<TripScreen> {
       this.date = '2020-01-10';
       print(this.idd);
       print(this.date);
-
+      getUserInfo().then((value) => currentUser = value).whenComplete(() {
+        setState(() {});
+      });
       TripService.getTripsByDriver(this.idd, this.date)
           .then((value) => this._trips = value)
           .catchError((onError) {
@@ -55,17 +71,20 @@ class _TripScreenState extends State<TripScreen> {
         child: Column(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("first name",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15.0)),
+              accountName: Text(
+                "${currentUser.getFirstName()} ${currentUser.getLastName()}",
+              ),
               accountEmail: Text(
-                "email",
+                "${currentUser.getEmail()}",
                 style: TextStyle(color: Colors.blueGrey[50]),
               ),
-              currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.brown, child: Text("FL")),
+              currentAccountPicture: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(100)),
+                child: Image.network(
+                  currentUser.getPictureUrl(),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             ListTile(
               title: Text('Your Trips for today '),
@@ -76,14 +95,14 @@ class _TripScreenState extends State<TripScreen> {
               onTap: null,
             ),
             //  Divider(),
-            ListTile(
-              title: Text('Sign out'),
-              onTap: null,
-            ),
 
             ListTile(
               title: Text('Help'),
               onTap: null,
+            ),
+            ListTile(
+              title: Text('Sign out'),
+              onTap: signOut,
             ),
           ],
         ),
@@ -95,16 +114,16 @@ class _TripScreenState extends State<TripScreen> {
             : _trips.isEmpty
                 ? Center(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/poor.png'),
-                      radius: 60,
-                    ),
-                    Text("You have no trips today",
-                        style: TextStyle(fontSize: 25))
-                  ]))
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/poor.png'),
+                          radius: 60,
+                        ),
+                        Text("You have no trips today",
+                            style: TextStyle(fontSize: 25))
+                      ]))
                 : buildTripItem(),
       ),
     );
@@ -139,5 +158,12 @@ class _TripScreenState extends State<TripScreen> {
         );
       },
     );
+  }
+
+  signOut() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.remove(ConsVar.userKey);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(StartPage.id, (route) => false);
   }
 }
