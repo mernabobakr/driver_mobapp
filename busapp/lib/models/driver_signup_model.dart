@@ -3,17 +3,20 @@ class DriverSignupModel {
   String _lastName;
   String _email;
   String pictureUrl;
+  int driverId;
 
-  DriverSignupModel.build(
-      this._firstName, this._lastName, this._email, this.pictureUrl);
+  DriverSignupModel.build(this.driverId, this._firstName, this._lastName,
+      this._email, this.pictureUrl);
 
   DriverSignupModel();
 
   factory DriverSignupModel.fromJson(Map json) => DriverSignupModel.build(
-      json['first_name'],
-      json['last_name'],
-      json['email'],
-      json['picture_url']);
+        json['id'],
+        json['first_name'],
+        json['last_name'],
+        json['email'],
+        json['picUrl'],
+      );
 
   @override
   String toString() {
@@ -26,6 +29,8 @@ class DriverSignupModel {
         "email": _email,
         "picUrl": pictureUrl,
       };
+
+  Map<String, dynamic> get userData => Map.from(toJson)..['id'] = this.driverId;
 
   void setFirstName(String firstName) {
     this._firstName = firstName;

@@ -110,9 +110,10 @@ class _LoginPageState extends State<StartPage> {
         this._isLoading = false;
       });
       if (response.statusCode == 200) {
-        Navigator.pushNamed(context, VerifyCode.id, arguments: this.phoneNumber);
-        print( response.statusCode); 
-        print ("5raaa response");
+        Navigator.pushNamed(context, VerifyCode.id,
+            arguments: this.phoneNumber);
+        print(response.statusCode);
+        print("5raaa response");
       } else {
         hlp.showSimpleErrorMessage(
             "Can't send SMS verification right now. Try again later", context);
@@ -170,8 +171,7 @@ class _LoginPageState extends State<StartPage> {
             SizedBox(
               height: 20.0,
             ),
-            buildButtonContainer(
-                "NEXT", Colors.white, Color(0xFF21BFBD)),
+            buildButtonContainer("NEXT", Colors.white, Color(0xFF21BFBD)),
             SizedBox(
               height: 10.0,
             ),
@@ -181,8 +181,7 @@ class _LoginPageState extends State<StartPage> {
     );
   }
 
-  Widget buildButtonContainer(
-      String text, Color color1, Color color2) {
+  Widget buildButtonContainer(String text, Color color1, Color color2) {
     return Container(
       height: 60.0,
       width: MediaQuery.of(context).size.width,
@@ -192,8 +191,8 @@ class _LoginPageState extends State<StartPage> {
           //MediaQuery.of(context).size.width,
           height: 55.0,
           child: RaisedButton(
-             onPressed: this.phoneSubmitted,
-           // onPressed: () => Navigator.pushReplacementNamed(context, SignUpPage.id),
+            onPressed: this.phoneSubmitted,
+            // onPressed: () => Navigator.pushReplacementNamed(context, SignUpPage.id),
             // borderSide:BorderSide(width: 4),
             color: color1,
             highlightColor: Colors.white,

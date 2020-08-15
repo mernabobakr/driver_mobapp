@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:busapp/Screens/start_page.dart';
-import 'package:busapp/models/credentials.dart';
+import 'package:busapp/di.dart';
 import 'package:busapp/models/driver_signup_model.dart';
 import 'package:busapp/utils/const_variables.dart';
 import 'package:flutter/material.dart';
@@ -18,44 +18,42 @@ class TripScreen extends StatefulWidget {
 }
 
 class _TripScreenState extends State<TripScreen> {
-  String idd;
-
   String date;
   String trip_type = "Morning trip";
 
   bool morning = true;
 
   List<Trip> _trips = [];
-  var _isLoading = true;
+  bool _isLoading;
+
   DriverSignupModel currentUser;
 
-  Future<DriverSignupModel> getUserInfo() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+  DriverSignupModel getUserInfo() {
+    SharedPreferences preferences = getIt.get<SharedPreferences>();
     final String result = preferences.getString(ConsVar.userKey);
     return DriverSignupModel.fromJson(json.decode(result));
+  }
+
+  fetchData() {
+    this.date = '2020-01-10';
+    currentUser = getUserInfo();
+
+    TripService.getTripsByDriver(this.currentUser.driverId ?? 1, this.date)
+        .then((value) => this._trips = value)
+        .catchError((onError) {
+      print(onError);
+    }).whenComplete(() {
+      setState(() {
+        this._isLoading = false;
+      });
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      this.idd = Credentials.driverId ?? '1';
-      this.date = '2020-01-10';
-      print(this.idd);
-      print(this.date);
-      getUserInfo().then((value) => currentUser = value).whenComplete(() {
-        setState(() {});
-      });
-      TripService.getTripsByDriver(this.idd, this.date)
-          .then((value) => this._trips = value)
-          .catchError((onError) {
-        print(onError);
-      }).whenComplete(() {
-        setState(() {
-          this._isLoading = false;
-        });
-      });
-    });
+    _isLoading = true;
+    Future.delayed(const Duration(milliseconds: 500), () => fetchData());
   }
 
   @override
@@ -64,46 +62,54 @@ class _TripScreenState extends State<TripScreen> {
       //backgroundColor:Color(0xFF21BFBD),
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF21BFBD),
         title: Text('Your trips for today'),
       ),
       drawer: Drawer(
         child: Column(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text(
-                "${currentUser.getFirstName()} ${currentUser.getLastName()}",
-              ),
-              accountEmail: Text(
-                "${currentUser.getEmail()}",
-                style: TextStyle(color: Colors.blueGrey[50]),
-              ),
-              currentAccountPicture: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                child: Image.network(
-                  currentUser.getPictureUrl(),
-                  fit: BoxFit.cover,
+          children: [
+            if (_isLoading)
+              Container()
+            else ...[
+              UserAccountsDrawerHeader(
+                accountName: Text(
+                  "${currentUser.getFirstName()} ${currentUser.getLastName()}",
+                ),
+                accountEmail: Text(
+                  "${currentUser.getEmail()}",
+                  style: TextStyle(color: Colors.blueGrey[50]),
+                ),
+                currentAccountPicture: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  child: (currentUser == null &&
+                          currentUser?.getPictureUrl() == null)
+                      ? Container(
+                          color: Colors.grey,
+                        )
+                      : Image.network(
+                          currentUser.getPictureUrl(),
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
-            ),
-            ListTile(
-              title: Text('Your Trips for today '),
-              onTap: null,
-            ),
-            ListTile(
-              title: Text('Setting'),
-              onTap: null,
-            ),
-            //  Divider(),
+              ListTile(
+                title: Text('Your Trips for today '),
+                onTap: null,
+              ),
+              ListTile(
+                title: Text('Setting'),
+                onTap: null,
+              ),
+              //  Divider(),
 
-            ListTile(
-              title: Text('Help'),
-              onTap: null,
-            ),
-            ListTile(
-              title: Text('Sign out'),
-              onTap: signOut,
-            ),
+              ListTile(
+                title: Text('Help'),
+                onTap: null,
+              ),
+              ListTile(
+                title: Text('Sign out'),
+                onTap: signOut,
+              ),
+            ]
           ],
         ),
       ),

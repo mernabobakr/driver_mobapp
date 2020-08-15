@@ -1,4 +1,4 @@
-class Credentials{
+class Credentials {
   static String token;
   static String driverId;
   static String firstName;

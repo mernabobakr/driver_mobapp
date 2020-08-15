@@ -1,13 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
+
 import '../models/slide.dart';
+import '../services/SMS_service.dart' as sms;
 import '../widgets/slide_dots.dart';
 import '../widgets/slideitem.dart';
-import '../services/SMS_service.dart' as sms;
 import 'Signup.dart';
+
 class VerifyCode extends StatefulWidget {
   static final String id = 'verifycode';
 
@@ -20,13 +22,15 @@ class _VerifyCodeState extends State<VerifyCode> {
   String phoneNumber;
   Timer timer;
   bool _isLoading = false;
-    //for slider movement
+
+  //for slider movement
   int _currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
-   @override
+
+  @override
   void initState() {
     super.initState();
-   
+
     timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
       if (_currentPage < 2) {
         _currentPage++;
@@ -39,8 +43,6 @@ class _VerifyCodeState extends State<VerifyCode> {
         curve: Curves.easeIn,
       );
     });
-
-    
   }
 
   // you have to STOP timer after moving to next screen else it will work every 5 second
@@ -113,80 +115,77 @@ class _VerifyCodeState extends State<VerifyCode> {
         ));
   }
 
- 
   @override
   Widget build(BuildContext context) {
     String phoneNumber = ModalRoute.of(context).settings.arguments as String;
     this.phoneNumber = phoneNumber;
-    print(this.phoneNumber+" aaa  ");
+    print(this.phoneNumber + " aaa  ");
     return Scaffold(
 //      backgroundColor: Color(0xFF21BFBD),
-appBar: AppBar(
+      appBar: AppBar(
         title: Text("kidzona driver-app"),
       ),
       backgroundColor: Colors.white,
-      body:this._isLoading
+      body: this._isLoading
           ? Center(
               child: CircularProgressIndicator(),
             )
           : Container(
-        child: Column(
+              child: Column(
 //          padding: const EdgeInsets.all(15),
 //          shrinkWrap: true,
-          children: <Widget>[
-            Flexible(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height / 1.4,
-                child: Stack(
-                  children: [
-                    PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageController,
-                      onPageChanged: _onPageChanged,
-                      itemCount: slideList.length,
-                      itemBuilder: (ctx, i) => SlideItem(slideList[i]),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 50,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            for (int i = 0; i < slideList.length; i++)
-                              if (i == _currentPage)
-                                SlideDots(true)
-                              else
-                                SlideDots(false)
-                          ],
-                        ),
+                children: <Widget>[
+                  Flexible(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.4,
+                      child: Stack(
+                        children: [
+                          PageView.builder(
+                            scrollDirection: Axis.horizontal,
+                            controller: _pageController,
+                            onPageChanged: _onPageChanged,
+                            itemCount: slideList.length,
+                            itemBuilder: (ctx, i) => SlideItem(slideList[i]),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 50,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  for (int i = 0; i < slideList.length; i++)
+                                    if (i == _currentPage)
+                                      SlideDots(true)
+                                    else
+                                      SlideDots(false)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  buildTextField("Enter the verification code"),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  buildButtonContainer("NEXT", Colors.white, Color(0xFF21BFBD)),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: 10.0,
-            ),
-            buildTextField("Enter the verification code"),
-            SizedBox(
-              height: 20.0,
-            ),
-            buildButtonContainer(
-                "NEXT", Colors.white, Color(0xFF21BFBD)),
-            SizedBox(
-              height: 10.0,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
-  Widget buildButtonContainer(
-      String text, Color color1, Color color2) {
+  Widget buildButtonContainer(String text, Color color1, Color color2) {
     return Container(
       height: 60.0,
       width: MediaQuery.of(context).size.width,
@@ -196,8 +195,7 @@ appBar: AppBar(
           //MediaQuery.of(context).size.width,
           height: 55.0,
           child: RaisedButton(
-             onPressed: this.verificationCodeSubmitted,
-           
+            onPressed: this.verificationCodeSubmitted,
             color: color1,
             highlightColor: Colors.white,
             shape: RoundedRectangleBorder(

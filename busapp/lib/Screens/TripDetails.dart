@@ -31,7 +31,8 @@ class _TripDetailsState extends State<TripDetails> {
             return Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
-              child: Card( shadowColor: Color(0xFF21BFBD),
+              child: Card(
+                shadowColor: Color(0xFF21BFBD),
                 child: ListTile(
                   title: Text(this._stops[index].location),
                   subtitle: Text("The expected time to reach is" +

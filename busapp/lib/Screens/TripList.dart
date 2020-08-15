@@ -11,7 +11,7 @@ class TripList extends StatefulWidget {
 }
 
 class _TripListState extends State<TripList> {
-  String id = '1';
+  int id = 1;
   String date = '2020-01-30';
 
   List<Trip> _stops = [];
