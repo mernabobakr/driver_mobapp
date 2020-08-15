@@ -36,7 +36,6 @@ class _TripScreenState extends State<TripScreen> {
 
   fetchData() {
     this.date = '2020-01-10';
-    currentUser = getUserInfo();
 
     TripService.getTripsByDriver(this.currentUser.driverId ?? 1, this.date)
         .then((value) => this._trips = value)
@@ -53,6 +52,10 @@ class _TripScreenState extends State<TripScreen> {
   void initState() {
     super.initState();
     _isLoading = true;
+    currentUser = getUserInfo();
+    setState(() {
+
+    });
     Future.delayed(const Duration(milliseconds: 500), () => fetchData());
   }
 
@@ -67,9 +70,6 @@ class _TripScreenState extends State<TripScreen> {
       drawer: Drawer(
         child: Column(
           children: [
-            if (_isLoading)
-              Container()
-            else ...[
               UserAccountsDrawerHeader(
                 accountName: Text(
                   "${currentUser.getFirstName()} ${currentUser.getLastName()}",
@@ -109,7 +109,7 @@ class _TripScreenState extends State<TripScreen> {
                 title: Text('Sign out'),
                 onTap: signOut,
               ),
-            ]
+
           ],
         ),
       ),
@@ -166,8 +166,8 @@ class _TripScreenState extends State<TripScreen> {
     );
   }
 
-  signOut() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+  signOut()async  {
+    SharedPreferences preferences = getIt.get();
     await preferences.remove(ConsVar.userKey);
     Navigator.of(context)
         .pushNamedAndRemoveUntil(StartPage.id, (route) => false);

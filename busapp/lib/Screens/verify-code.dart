@@ -216,8 +216,10 @@ class _VerifyCodeState extends State<VerifyCode> {
   Widget buildTextField(String hintText) {
     return TextField(
       onChanged: (val) => this.verificationCode = val,
+      keyboardType: TextInputType.number,
       decoration: InputDecoration(
         hintText: hintText,
+
         hintStyle: TextStyle(
           color: Colors.grey,
           fontSize: 18.0,
