@@ -6,7 +6,6 @@ import 'package:busapp/models/driver_signup_model.dart';
 import 'package:busapp/utils/const_variables.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +36,7 @@ class _SignupPageState extends State<SignUpPage> {
   DriverSignupModel driverModel = DriverSignupModel();
 
   @override
+/*
   void initState() {
     super.initState();
     this._token = Credentials.token;
@@ -45,11 +45,9 @@ class _SignupPageState extends State<SignUpPage> {
     if(_token ==null)return;
     this._isLoading = true;
 
-    driverService
-        .getdriverId(this._token)
-        .then(this.goToTripsIfDriverIdFound)
-        .catchError(this.setIsLoadingFalse);
+    
   }
+  */
 
   void setIsLoadingFalse(_) {
     setState(() {
@@ -57,15 +55,6 @@ class _SignupPageState extends State<SignUpPage> {
     });
   }
 
-  void goToTripsIfDriverIdFound(http.Response response) {
-    if (response.statusCode == 200) {
-      var bodyMap = JsonDecoder().convert(response.body);
-      Credentials.driverId = bodyMap["iddrivers"].toString();
-    }
-    setState(() {
-      this._isLoading = false;
-    });
-  }
 
   void submitForm() async {
     print("offfffffff");
@@ -77,35 +66,32 @@ class _SignupPageState extends State<SignUpPage> {
     });
     await uploadProfilePic();
     print(this.driverModel.getPictureUrl());
-//    print("the secret token is " + this._token);
-    saveDataUser().then((value) =>
-        Navigator.of(context).pushReplacementNamed(TripScreen.id));
-//    driverService.signUp(this.driverModel, this._token).then((response) {
-//      print("The status code is  ");
-//      print(response.statusCode);
-//      setState(() {
-//        this._isLoading = false;
-//      });
-//
-//      var bodyMap = JsonDecoder().convert(response.body);
-//
-//      if (response.statusCode != 200) {
-//        hlp.showSimpleErrorMessage(bodyMap["message"], context);
-//        print("The message is " + bodyMap["message"]);
-//      } else {
-//        Credentials.driverId = bodyMap["iddrivers"];
-//        Credentials.firstName = bodyMap["first_name"];
-//        Credentials.lastName = bodyMap["last_name"];
-//        Credentials.email = bodyMap["email"];
-//        saveDataUser().then((value) =>
-//            Navigator.of(context).pushReplacementNamed(TripScreen.id));
-//      }
-//    }).catchError((err) {
-//      hlp.showSimpleErrorMessage("Unknown Error Happened", context);
-//      setState(() {
-//        this._isLoading = false;
-//      });
-//    });
+
+  //  saveDataUser().then((value) =>
+     //   Navigator.of(context).pushReplacementNamed(TripScreen.id));
+    driverService.signUp(this.driverModel).then((response) {
+     print("The status code is  ");
+      print(response.statusCode);
+      setState(() {
+        this._isLoading = false;
+      });
+
+     // var bodyMap = JsonDecoder().convert(response.body);
+
+    if (response.statusCode != 200) {
+       hlp.showSimpleErrorMessage("There is an error happened", context);
+
+      } else {
+
+        saveDataUser().then((value) =>
+           Navigator.of(context).pushReplacementNamed(TripScreen.id));
+     }
+    }).catchError((err) {
+    hlp.showSimpleErrorMessage("Unknown Error Happened", context);
+     setState(() {
+     this._isLoading = false;
+     });
+   });
   }
 
   Future uploadProfilePic() async {

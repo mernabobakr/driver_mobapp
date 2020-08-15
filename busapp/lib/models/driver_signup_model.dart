@@ -24,7 +24,7 @@ class DriverSignupModel {
         "first_name": _firstName,
         "last_name": _lastName,
         "email": _email,
-        "picture_url": pictureUrl,
+        "picUrl": pictureUrl,
       };
 
   void setFirstName(String firstName) {
