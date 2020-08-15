@@ -117,8 +117,8 @@ class _VerifyCodeState extends State<VerifyCode> {
 
   @override
   Widget build(BuildContext context) {
-    String phoneNumber = ModalRoute.of(context).settings.arguments as String;
-    this.phoneNumber = phoneNumber;
+  //  String phoneNumber = ModalRoute.of(context).settings.arguments as String;
+    this.phoneNumber = "01273252408";
     print(this.phoneNumber + " aaa  ");
     return Scaffold(
 //      backgroundColor: Color(0xFF21BFBD),

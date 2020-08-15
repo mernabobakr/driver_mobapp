@@ -6,7 +6,7 @@ import 'package:busapp/utils/const_variables.dart';
 import 'package:http/http.dart' as http;
 
 Future<http.Response> signUp(DriverSignupModel model) async {
-  final sigUpUrl = ConsVar.baseUrl + ":8040/driver/new";
+  final sigUpUrl = ConsVar.baseUrl + ":8070/driver/new";
 
   return http.post(
     Uri.parse(sigUpUrl),

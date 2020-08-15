@@ -1,5 +1,6 @@
 import 'package:busapp/Screens/TripScreen.dart';
 import 'package:busapp/Screens/start_page.dart';
+import 'package:busapp/Screens/verify-code.dart';
 import 'package:busapp/di.dart';
 import 'package:busapp/utils/const_variables.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _AppState extends State<App> {
   fetchData() {
     SharedPreferences preferences = getIt.get<SharedPreferences>();
     initialRoute = preferences.getString(ConsVar.userKey) == null
-        ? StartPage.id
+        ? VerifyCode.id
         : TripScreen.id;
   }
 
